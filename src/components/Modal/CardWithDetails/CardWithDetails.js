@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 import classes from './CardWithDetails.module.scss';
+import Spinner from '../../Spinner/Spinner';
 
 class CardWithDetails extends Component {
     state = {
         pokemonDescription: 'a',
-        error: null
+        error: null,
+        loading: false
     }
 
     componentDidMount() {
@@ -33,13 +35,15 @@ class CardWithDetails extends Component {
         } else {
             pokemonId = '#' + pokemon.id;
         }
+
+        let description = this.state.loading ? <Spinner /> : (<p>{this.state.pokemonDescription}</p>)
     
         return (
             <div className={classes.DetailsCard}>
                 <img src={pokemon.sprites.front_default} alt=""/>
                 <h1 className={classes.PokemonName}>{pokemon.name}</h1>
                 <p className={classes.PokemonId}>{pokemonId}</p>
-                <p>{this.state.pokemonDescription}</p>
+                {description}
             </div>
         );
     }

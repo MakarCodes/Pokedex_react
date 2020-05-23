@@ -6,6 +6,7 @@ import classes from './PokemonContainer.module.scss';
 import Modal from '../../components/Modal/Modal';
 import CardWithDetails from '../../components/Modal/CardWithDetails/CardWithDetails';
 import PokemonCard from '../../components/PokemonCard/PokemonCard';
+import Spinner from '../../components/Spinner/Spinner';
 
 class PokemonContainer extends Component {
     state = {
@@ -50,7 +51,7 @@ class PokemonContainer extends Component {
 
         return (
             <div className={classes.Container}>
-                {pokemonList}
+                {this.props.loading ? <Spinner /> : pokemonList}
                 {modalWithDetails}
             </div>
         )
