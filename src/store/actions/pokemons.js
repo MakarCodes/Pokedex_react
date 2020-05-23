@@ -41,5 +41,42 @@ export const fetchPokemonInit = () => {
             });
     };
 };
+
+
+export const fetchPokemonDescriptionStart = () => {
+    return {
+        type: actionTypes.FETCHING_DESCRIPTION_START
+    };
+};
+
+export const fetchPokemonDescriptionSuccess = (descriptionText) => {
+    return {
+        type: actionTypes.FETCHING_DESCRIPTION_SUCCESS,
+        text: descriptionText
+    };
+};
+
+export const fetchPokemonDescriptionFail = (error) => {
+    return {
+        type: actionTypes.FETCHING_DESCRIPTION_FAIL,
+        erorr: error
+    };
+};
+
+export const fetchDescriptionInit = (id) => {
+    return dispatch => {
+        dispatch(fetchPokemonDescriptionStart());
+        axios.get(`https://pokeapi.co/api/v2/pokemon-species/${id}`)
+        .then(response => {
+            let descriptionText = response.data.flavor_text_entries.find(text => {
+                return text.language.name === "en"
+            });
+            dispatch(fetchPokemonDescriptionSuccess(descriptionText.flavor_text))
+        })
+        .catch(error => {
+            dispatch(fetchPokemonDescriptionFail(error));
+        });
+    };
+};
     
 
