@@ -1,28 +1,15 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
 
 import classes from './CardWithDetails.module.scss';
+import * as actions from '../../../store/actions/index';
 import Spinner from '../../Spinner/Spinner';
 
 class CardWithDetails extends Component {
-    state = {
-        pokemonDescription: 'a',
-        error: null,
-        loading: false
-    }
-
     componentDidMount() {
-        let id = this.props.pokemon.id
-        axios.get(`https://pokeapi.co/api/v2/pokemon-species/${id}`)
-            .then(response => {
-                let descriptionText = response.data.flavor_text_entries.find(text => {
-                    return text.language.name === "en"
-                });
-                this.setState({
-                    pokemonDescription: descriptionText.flavor_text
-                })
-            })
-            .catch(error => this.setState({error: error}))
+        let id = this.props.pokemon.id;
+        this.props.fetchPokemonDescription(id);
     }
 
     render() {
@@ -36,7 +23,7 @@ class CardWithDetails extends Component {
             pokemonId = '#' + pokemon.id;
         }
 
-        let description = this.state.loading ? <Spinner /> : (<p>{this.state.pokemonDescription}</p>)
+        let description = this.props.loading ? <Spinner /> : (<p>{this.props.pokemonDescription}</p>)
     
         return (
             <div className={classes.DetailsCard}>
@@ -49,4 +36,18 @@ class CardWithDetails extends Component {
     }
 };
 
-export default CardWithDetails;
+const mapStateToProps = state => {
+    return {
+        pokemonDescription: state.pokemonDescription,
+        error: state.errorWhileDescription,
+        loading: state.loadingDescription
+    }
+}
+
+const dispatchStateToProps = dispatch => {
+    return {
+        fetchPokemonDescription: (id) => dispatch(actions.fetchDescriptionInit(id))
+    }
+}
+
+export default connect(mapStateToProps,dispatchStateToProps)(CardWithDetails);
