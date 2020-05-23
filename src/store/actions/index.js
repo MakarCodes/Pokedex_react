@@ -1,0 +1,3 @@
+export {
+    fetchPokemonInit
+} from './pokemons'
