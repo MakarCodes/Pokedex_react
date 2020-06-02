@@ -1,0 +1,25 @@
+.StatName {
+    font-size: 16px;
+    text-transform: uppercase;
+    display: block;
+    padding: 4px 0;
+    margin-left: 8px;
+}
+
+.StatValue {
+    font-weight: 700;
+}
+
+.OutsideSkillBar {
+    width: 90%;
+    height: 30px;
+    margin: 0 auto 8px 0;
+    border: 2px solid rgba(146,99,99,.21);
+    border-radius: 15px;
+}
+
+.InsideSkillBar {
+    height: 100%;
+    background: #4e4ef3;
+    border-radius: inherit;
+}

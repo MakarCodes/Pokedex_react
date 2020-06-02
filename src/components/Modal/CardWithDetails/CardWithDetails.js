@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import classes from './CardWithDetails.module.scss';
 import * as actions from '../../../store/actions/index';
 import Spinner from '../../Spinner/Spinner';
+import Skill from '../Skill/Skill';
 
 class CardWithDetails extends Component {
     componentDidMount() {
@@ -37,7 +38,13 @@ class CardWithDetails extends Component {
                 style={spanStyle}>
                 {pokemonTypes.type.name.charAt(0).toUpperCase() + pokemonTypes.type.name.slice(1)}</span>
         })
-        
+
+        const skillsList = pokemon.stats.map(stat => {
+            return <Skill 
+                statValue={stat.base_stat} 
+                statName={stat.stat.name} 
+                key={stat.stat.name}/>
+        })
 
         let description = this.props.loading ? <Spinner /> 
         : 
@@ -53,6 +60,9 @@ class CardWithDetails extends Component {
                 </div>
                 <div className={classes.PokemonInfoContainer}>
                     {pokemonTypes.map(pokemonType => pokemonType)}
+                </div>
+                <div className={classes.SkillsContainer}>
+                    {skillsList}
                 </div>
             </React.Fragment>
         )
