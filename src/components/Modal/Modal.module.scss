@@ -2,28 +2,27 @@
     position: fixed;
     z-index: 500;
     background-color: #dbdbdb;
-    width: 70%;
     border: 1px solid #ccc;
     box-shadow: 1px 1px 1px black;
     padding: 16px;
     display: flex;
     justify-content: center;
     box-sizing: border-box;
-    border-radius: 10px;
+    border-radius: 10px 0 0 10px;
     transition: all 0.3s ease-out;
+    max-height: 100%;
+    width: 100%;
+    margin: 0 auto;
+    overflow-y: scroll;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    max-height: 100vh;
-    overflow-y: scroll;
 }
 
 @media (min-width: 600px) {
     .Modal {
         width: 400px;
-        max-height: 80vh;
-        left: 50%;
-        top: 60%;
-        transform: translate(-50%, -50%);
+        height: auto;
+        max-height: 90vh;
     }
 }
