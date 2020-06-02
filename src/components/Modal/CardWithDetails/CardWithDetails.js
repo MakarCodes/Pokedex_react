@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { connect } from 'react-redux';
 
 import classes from './CardWithDetails.module.scss';
@@ -10,6 +9,7 @@ class CardWithDetails extends Component {
     componentDidMount() {
         let id = this.props.pokemon.id;
         this.props.fetchPokemonDescription(id);
+        console.log(this.props.pokemon)
     }
 
     render() {
@@ -30,7 +30,11 @@ class CardWithDetails extends Component {
                 <img src={pokemon.sprites.front_default} alt=""/>
                 <h1 className={classes.PokemonName}>{pokemon.name}</h1>
                 <p className={classes.PokemonId}>{pokemonId}</p>
-                <p>{this.props.pokemonDescription}</p>
+                <p className={classes.PokemonDescription}>{this.props.pokemonDescription}</p>
+                <div className={classes.PokemonSizeContainer}>
+                    <p className={classes.PokemonWeight}>Weight: {pokemon.weight}</p>
+                    <p>Height: {pokemon.height}</p>
+                </div>
             </React.Fragment>
         )
     

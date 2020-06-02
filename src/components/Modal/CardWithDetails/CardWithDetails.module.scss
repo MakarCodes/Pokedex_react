@@ -1,3 +1,41 @@
 .DetailsCard {
     z-index: 999999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    img {
+        display: block;
+        width: 60%;
+        margin: 0 auto 10px auto;
+    }
+    .PokemonName {
+        margin: 0 0 10px 0;
+        font-size: 30px;
+        text-transform: capitalize;
+        font-weight: 700;
+    }
+    .PokemonId {
+        display: block;
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+    .PokemonDescription {
+        display: block;
+        text-align: center;
+        padding: 6px;
+        margin-bottom: 10px;
+        line-height: 1.2rem;
+    }
+    .PokemonSizeContainer {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        .PokemonWeight {
+            &::after {
+                content: "|";
+                padding: 0 6px;
+            }
+        }
+    }
 }
