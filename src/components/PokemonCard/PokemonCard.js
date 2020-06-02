@@ -49,7 +49,7 @@ const PokemonCard = ({pokemon, clicked}) => {
 
     return (
         <div
-            onClick={() => {clicked(pokemon)}}
+            onClick={() => {clicked(pokemon, backgroundsDependingOnTypeOfPokemon)}}
             className={classes.PokemonCard}
             style={pokemonBakground}>
             <img

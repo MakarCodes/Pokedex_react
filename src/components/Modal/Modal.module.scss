@@ -6,18 +6,24 @@
     border: 1px solid #ccc;
     box-shadow: 1px 1px 1px black;
     padding: 16px;
-    left: 15%;
-    top: 30%;
     display: flex;
     justify-content: center;
     box-sizing: border-box;
     border-radius: 10px;
     transition: all 0.3s ease-out;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    max-height: 100vh;
+    overflow-y: scroll;
 }
 
 @media (min-width: 600px) {
     .Modal {
         width: 400px;
-        left: calc(50% - 200px);
+        max-height: 80vh;
+        left: 50%;
+        top: 60%;
+        transform: translate(-50%, -50%);
     }
 }
