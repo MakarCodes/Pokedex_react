@@ -23,6 +23,22 @@ class CardWithDetails extends Component {
             pokemonId = '#' + pokemon.id;
         }
 
+        const pokemonTypes = pokemon.types.map((pokemonTypes, index) => {
+            let spanStyle = {
+                color: `${this.props.colors[index]}`,
+                border: `2px solid ${this.props.colors[index]}`,
+                margin: "0px 5px",
+                borderRadius: "14px",
+                padding: "5px",
+                fontWeight: "900"
+            }
+            return <span 
+                key={index} 
+                style={spanStyle}>
+                {pokemonTypes.type.name.charAt(0).toUpperCase() + pokemonTypes.type.name.slice(1)}</span>
+        })
+        
+
         let description = this.props.loading ? <Spinner /> 
         : 
         (
@@ -36,9 +52,7 @@ class CardWithDetails extends Component {
                     <p>Height: {pokemon.height}</p>
                 </div>
                 <div className={classes.PokemonInfoContainer}>
-                    {pokemon.types.map((pokemonType) => {
-                        return pokemonType.type.name.charAt(0).toUpperCase() + pokemonType.type.name.slice(1)
-                    }).join(' | ')}
+                    {pokemonTypes.map(pokemonType => pokemonType)}
                 </div>
             </React.Fragment>
         )
