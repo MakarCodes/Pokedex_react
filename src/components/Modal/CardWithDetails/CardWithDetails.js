@@ -31,9 +31,14 @@ class CardWithDetails extends Component {
                 <h1 className={classes.PokemonName}>{pokemon.name}</h1>
                 <p className={classes.PokemonId}>{pokemonId}</p>
                 <p className={classes.PokemonDescription}>{this.props.pokemonDescription}</p>
-                <div className={classes.PokemonSizeContainer}>
+                <div className={classes.PokemonInfoContainer}>
                     <p className={classes.PokemonWeight}>Weight: {pokemon.weight}</p>
                     <p>Height: {pokemon.height}</p>
+                </div>
+                <div className={classes.PokemonInfoContainer}>
+                    {pokemon.types.map((pokemonType) => {
+                        return pokemonType.type.name.charAt(0).toUpperCase() + pokemonType.type.name.slice(1)
+                    }).join(' | ')}
                 </div>
             </React.Fragment>
         )

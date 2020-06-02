@@ -11,17 +11,19 @@ import Spinner from '../../components/Spinner/Spinner';
 class PokemonContainer extends Component {
     state = {
         displayDetailInfo: false,
-        pokemon: null
+        pokemon: null,
+        colors: []
     }
 
     componentDidMount() {
         this.props.fetchPokemons();
     }
 
-    detailInfoHandler = (pokemon) => {
+    detailInfoHandler = (pokemon, colors) => {
         this.setState({
             displayDetailInfo: true,
-            pokemon: pokemon
+            pokemon: pokemon,
+            colors: colors
         });
     };
 
@@ -43,7 +45,7 @@ class PokemonContainer extends Component {
         let modalWithDetails = this.state.displayDetailInfo ? 
         (
         <Modal close={this.closeDetailInfoHandler}>
-            <CardWithDetails pokemon={this.state.pokemon}/>
+            <CardWithDetails pokemon={this.state.pokemon} colors={this.state.colors}/>
         </Modal>
         ) 
         : 
