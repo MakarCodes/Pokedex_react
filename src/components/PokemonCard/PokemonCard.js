@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowsAltV, faWeightHanging } from '@fortawesome/free-solid-svg-icons';
+import { faWeightHanging, faSortAmountUp } from '@fortawesome/free-solid-svg-icons';
 import classes from './PokemonCard.module.scss';
 
 const TYPE_COLORS = {
@@ -65,7 +65,7 @@ const PokemonCard = ({pokemon, clicked}) => {
                     <span className={classes.WeightHeight}>{pokemon.weight}</span>
                 </div>
                 <div className={classes.DetailInfo}>
-                    <i><FontAwesomeIcon icon={faArrowsAltV} size="2x"/></i>
+                    <i><FontAwesomeIcon icon={faSortAmountUp} size="2x"/></i>
                     <span className={classes.WeightHeight}>{pokemon.height}</span>
                 </div>
             </div>
