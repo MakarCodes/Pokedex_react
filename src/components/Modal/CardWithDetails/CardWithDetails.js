@@ -23,13 +23,19 @@ class CardWithDetails extends Component {
             pokemonId = '#' + pokemon.id;
         }
 
-        let description = this.props.loading ? <Spinner /> : (<p>{this.props.pokemonDescription}</p>)
-    
-        return (
-            <div className={classes.DetailsCard}>
+        let description = this.props.loading ? <Spinner /> 
+        : 
+        (
+            <React.Fragment>
                 <img src={pokemon.sprites.front_default} alt=""/>
                 <h1 className={classes.PokemonName}>{pokemon.name}</h1>
                 <p className={classes.PokemonId}>{pokemonId}</p>
+                <p>{this.props.pokemonDescription}</p>
+            </React.Fragment>
+        )
+    
+        return (
+            <div className={classes.DetailsCard}>
                 {description}
             </div>
         );
