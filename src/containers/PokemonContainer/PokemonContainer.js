@@ -45,7 +45,9 @@ class PokemonContainer extends Component {
         let modalWithDetails = this.state.displayDetailInfo ? 
         (
         <Modal close={this.closeDetailInfoHandler}>
-            <CardWithDetails pokemon={this.state.pokemon} colors={this.state.colors}/>
+            <CardWithDetails 
+                pokemon={this.state.pokemon}
+                colors={this.state.colors}/>
         </Modal>
         ) 
         : 

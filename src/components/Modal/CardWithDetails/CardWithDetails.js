@@ -5,12 +5,13 @@ import classes from './CardWithDetails.module.scss';
 import * as actions from '../../../store/actions/index';
 import Spinner from '../../Spinner/Spinner';
 import Skill from '../Skill/Skill';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 class CardWithDetails extends Component {
     componentDidMount() {
         let id = this.props.pokemon.id;
         this.props.fetchPokemonDescription(id);
-        console.log(this.props.pokemon)
     }
 
     render() {
@@ -50,6 +51,7 @@ class CardWithDetails extends Component {
         : 
         (
             <React.Fragment>
+                <i className={classes.closeIcon}><FontAwesomeIcon icon={faTimes} size="2x"/></i>
                 <img src={pokemon.sprites.front_default} alt=""/>
                 <h1 className={classes.PokemonName}>{pokemon.name}</h1>
                 <p className={classes.PokemonId}>{pokemonId}</p>
