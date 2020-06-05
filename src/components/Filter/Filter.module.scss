@@ -1,0 +1,18 @@
+.FilterContainer {
+    width: 90%;
+    margin: 20px auto;
+    text-align: left;
+
+    .filterBtn {
+        padding: 8px;
+        font-size: 0.8rem;
+        color: white;
+        background-color: #007bff;
+        border: none;
+        outline: none;
+        border-radius: 6px;
+        cursor: pointer;
+        display: block;
+        margin-bottom: 6px;
+    }
+}
