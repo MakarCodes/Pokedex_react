@@ -51,7 +51,8 @@ class CardWithDetails extends Component {
         : 
         (
             <React.Fragment>
-                <i className={classes.closeIcon}><FontAwesomeIcon icon={faTimes} size="2x"/></i>
+                <i className={classes.closeIcon}
+                    onClick={this.props.closeModal}><FontAwesomeIcon icon={faTimes} size="2x"/></i>
                 <img src={pokemon.sprites.front_default} alt=""/>
                 <h1 className={classes.PokemonName}>{pokemon.name}</h1>
                 <p className={classes.PokemonId}>{pokemonId}</p>
