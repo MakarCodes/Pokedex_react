@@ -20,6 +20,8 @@
 
 .InsideSkillBar {
     height: 100%;
+    width: 0;
     background: #4e4ef3;
     border-radius: inherit;
+    transition: all 2s ease-in;
 }
