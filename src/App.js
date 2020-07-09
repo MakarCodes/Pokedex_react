@@ -10,6 +10,10 @@ class App extends Component {
     showTypeButtons: false,
   };
 
+  handleFilterChange = type => {
+    console.log('type', type);
+  };
+
   showFilteringButtons = () => {
     this.setState(prevState => ({
       showTypeButtons: !prevState.showTypeButtons,
@@ -23,6 +27,7 @@ class App extends Component {
           <Filter
             showFilteringButtons={this.showFilteringButtons}
             showButtons={this.state.showTypeButtons}
+            filterType={this.handleFilterChange}
           />
           <PokemonContainer />
           Paging Section

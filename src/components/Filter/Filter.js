@@ -5,7 +5,7 @@ import classes from './Filter.module.scss';
 
 import Button from '../Button/Button';
 
-const Filter = ({ showFilteringButtons, showButtons }) => {
+const Filter = ({ showFilteringButtons, showButtons, filterType }) => {
   const filterTypes = [
     'normal',
     'fighting',
@@ -30,7 +30,11 @@ const Filter = ({ showFilteringButtons, showButtons }) => {
   let typeButtonList = null;
   if (showButtons) {
     typeButtonList = filterTypes.map((type, index) => {
-      return <Button key={type + index}>{type.toUpperCase()}</Button>;
+      return (
+        <Button key={type + index} clicked={filterType}>
+          {type.toUpperCase()}
+        </Button>
+      );
     });
   }
 
