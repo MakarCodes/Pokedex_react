@@ -5,38 +5,45 @@ import classes from './Filter.module.scss';
 
 import Button from '../Button/Button';
 
-const Filter = ({showFilteringButtons}) => {
-    const filterTypes = [
-        'normal',
-        'fighting',
-        'flying',
-        'poison',
-        'ground',
-        'rock',
-        'bug',
-        'ghost',
-        'steel',
-        'fire',
-        'water',
-        'grass',
-        'electric',
-        'psychic',
-        'ice',
-        'dragon',
-        'fairy',
-        'dark'
-    ];
+const Filter = ({ showFilteringButtons, showButtons }) => {
+  const filterTypes = [
+    'normal',
+    'fighting',
+    'flying',
+    'poison',
+    'ground',
+    'rock',
+    'bug',
+    'ghost',
+    'steel',
+    'fire',
+    'water',
+    'grass',
+    'electric',
+    'psychic',
+    'ice',
+    'dragon',
+    'fairy',
+    'dark',
+  ];
 
-    const typeButtonList = filterTypes.map((type, index) => {
-        return <Button key={type + index}>{type.toUpperCase()}</Button>
-    })
+  let typeButtonList = null;
+  if (showButtons) {
+    typeButtonList = filterTypes.map((type, index) => {
+      return <Button key={type + index}>{type.toUpperCase()}</Button>;
+    });
+  }
 
-    return (
-        <div className={classes.FilterContainer}>
-            <button onClick={showFilteringButtons} className={classes.filterBtn}><i><FontAwesomeIcon icon={faFilter} size="2x"/></i></button>
-            {typeButtonList}
-        </div>
-    );
+  return (
+    <div className={classes.FilterContainer}>
+      <button onClick={showFilteringButtons} className={classes.filterBtn}>
+        <i>
+          <FontAwesomeIcon icon={faFilter} size='2x' />
+        </i>
+      </button>
+      {typeButtonList}
+    </div>
+  );
 };
 
 export default Filter;
