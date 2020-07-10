@@ -50,19 +50,16 @@ export const fetchPokemonTypes = type => {
     axios
       .get(`https://pokeapi.co/api/v2/type/${type}`)
       .then(response => {
-        console.log(response.data.pokemon.slice(1, 6));
         return Promise.all(
           response.data.pokemon
-            .slice(1, 6)
+            .slice(1, 21)
             .map(result => axios.get(result.pokemon.url))
         );
       })
       .then(responses => {
-        console.log(responses, '[responses]');
         return responses.map(singleResponse => singleResponse.data);
       })
       .then(pokemons => {
-        console.log(pokemons, '[pokemons]');
         dispatch(fetchPokemonSuccess(pokemons));
       })
       .catch(error => {
