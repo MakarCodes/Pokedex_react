@@ -1,4 +1,5 @@
 export {
-    fetchPokemonInit,
-    fetchDescriptionInit
-} from './pokemons'
+  fetchPokemonInit,
+  fetchPokemonTypes,
+  fetchDescriptionInit,
+} from './pokemons';
