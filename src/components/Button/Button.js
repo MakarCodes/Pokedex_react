@@ -4,8 +4,8 @@ import classes from './Button.module.scss';
 const Button = ({ children, clicked }) => {
   return (
     <button
-      onClick={() => {
-        clicked(children);
+      onClick={e => {
+        clicked(children, e);
       }}
       className={classes.Button}
     >
