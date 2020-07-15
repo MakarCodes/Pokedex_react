@@ -13,6 +13,10 @@ class App extends Component {
     type: null,
   };
 
+  componentDidMount() {
+    this.props.fetchPokemonsInitial();
+  }
+
   componentDidUpdate(prevProps, prevState) {
     if (this.state.type !== prevState.type && this.state.type !== null) {
       this.props.fetchPokemons(this.state.type);
@@ -57,11 +61,7 @@ class App extends Component {
     return (
       <div className={classes.App}>
         <Layout>
-          <Filter
-            showFilteringButtons={this.showFilteringButtons}
-            showButtons={this.state.showTypeButtons}
-            filterType={this.handleFilterChange}
-          />
+          <Filter showFilteringButtons={this.showFilteringButtons} showButtons={this.state.showTypeButtons} filterType={this.handleFilterChange} />
           <PokemonContainer />
           Paging Section
         </Layout>
@@ -79,6 +79,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    fetchPokemonsInitial: () => dispatch(actions.fetchPokemonInit()),
     fetchPokemons: type => dispatch(actions.fetchPokemonTypes(type)),
   };
 };
