@@ -45,6 +45,7 @@ class App extends Component {
       dragon: '#A886F9',
       dark: '#A89990',
     };
+    e.target.parentNode.childNodes.forEach(element => (element.style.backgroundColor = 'transparent'));
     e.target.style.backgroundColor = TYPE_COLORS[pokemonType];
     this.setState({
       type: pokemonType,
