@@ -10,7 +10,7 @@ import Filter from './components/Filter/Filter';
 class App extends Component {
   state = {
     showTypeButtons: false,
-    type: null,
+    type: [],
   };
 
   componentDidMount() {
@@ -18,13 +18,42 @@ class App extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.state.type !== prevState.type && this.state.type !== null) {
-      this.props.fetchPokemons(this.state.type);
+    if (this.state.type !== prevState.type && this.state.type.length !== 0) {
+      // this.props.fetchPokemons(this.state.type);
+      this.filterPokemons(this.state.type);
     }
   }
 
+  filterPokemons = type => {
+    if (type.length === 0) {
+      //get initially fetched pokemons from local storage
+      console.log('Get from Local Storage');
+    } else if (type.length === 1) {
+      //fetch pokemons depeneding on type
+      this.props.fetchPokemons(this.state.type[0]);
+    } else {
+      // double filtering 1. fetch data for one type than filter all and find only those which match second type
+      console.log('Dobule trouble my friend - double filtering required');
+    }
+  };
+
+  handleFilterTypes = type => {
+    let typeArray = this.state.type;
+    if (!typeArray.includes(type) && typeArray.length < 2) {
+      typeArray.push(type);
+      console.log(typeArray);
+    } else if (typeArray.includes(type)) {
+      typeArray.splice(
+        typeArray.findIndex(x => x === type),
+        1
+      );
+      console.log(typeArray);
+    }
+  };
+
   handleFilterChange = (type, e) => {
     const pokemonType = type.toLowerCase();
+    this.handleFilterTypes(pokemonType);
     const TYPE_COLORS = {
       poison: '#C68CC6',
       grass: '#AEDE96',
@@ -48,7 +77,7 @@ class App extends Component {
     e.target.parentNode.childNodes.forEach(element => (element.style.backgroundColor = 'transparent'));
     e.target.style.backgroundColor = TYPE_COLORS[pokemonType];
     this.setState({
-      type: pokemonType,
+      type: [pokemonType],
     });
   };
 
