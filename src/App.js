@@ -21,16 +21,21 @@ class App extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (this.state.type !== prevState.type && this.state.type.length !== 0) {
       // this.props.fetchPokemons(this.state.type);
+      console.log('[UPDATED]');
       this.filterPokemons(this.state.type);
     }
   }
 
   filterPokemons = type => {
     let pokemonsToDisplay = null;
+    console.log('im working');
     if (type.length === 0) {
       pokemonsToDisplay = this.props.pokemons;
       //get initially fetched pokemons from local storage
       console.log('Get from Local Storage');
+      this.setState({
+        pokemonsToDisplay: pokemonsToDisplay,
+      });
     } else if (type.length === 1) {
       console.log('Type length one', type);
       pokemonsToDisplay = this.props.pokemons.filter(pokemon => {
@@ -40,18 +45,23 @@ class App extends Component {
         return pokemon.types[0].type.name === type[0];
       });
       console.log(pokemonsToDisplay);
+      this.setState({
+        pokemonsToDisplay: pokemonsToDisplay,
+      });
+      console.log(this.state.pokemonsToDisplay, 'state - poke to display');
       //fetch pokemons depeneding on type
       // this.props.fetchPokemons(this.state.type[0]);
     } else {
       console.log('Dobule trouble my friend - double filtering required');
+
+      this.setState({
+        pokemonsToDisplay: pokemonsToDisplay,
+      });
     }
-    this.setState({
-      pokemonsToDisplay: pokemonsToDisplay,
-    });
   };
 
   handleFilterTypes = (type, button) => {
-    let typeArray = this.state.type;
+    let typeArray = [...this.state.type];
     if (!typeArray.includes(type) && typeArray.length < 2) {
       typeArray.push(type);
       this.setState({
@@ -68,7 +78,7 @@ class App extends Component {
       });
     } else if (typeArray.length >= 2 && !typeArray.includes(type)) {
       typeArray.splice(1, 1, type);
-      console.log(button.previousElementSibling);
+      // console.log(button.previousElementSibling);
       button.previousElementSibling.style.backgroundColor = 'transparent';
       this.setState({
         type: typeArray,
