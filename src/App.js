@@ -132,7 +132,7 @@ class App extends Component {
       <div className={classes.App}>
         <Layout>
           <Filter showFilteringButtons={this.showFilteringButtons} showButtons={this.state.showTypeButtons} filterType={this.handleFilterChange} />
-          <PokemonContainer />
+          <PokemonContainer pokemonsToDisplay={this.state.pokemonsToDisplay} />
           Paging Section
         </Layout>
       </div>

@@ -32,6 +32,11 @@ class PokemonContainer extends Component {
     let pokemonList = this.props.pokemons.map(pokemon => {
       return <PokemonCard clicked={this.detailInfoHandler} pokemon={pokemon} key={pokemon.id} />;
     });
+    if (this.props.pokemonsToDisplay.length !== 0) {
+      pokemonList = this.props.pokemonsToDisplay.map(pokemon => {
+        return <PokemonCard clicked={this.detailInfoHandler} pokemon={pokemon} key={pokemon.id} />;
+      });
+    }
 
     let modalWithDetails = this.state.displayDetailInfo ? (
       <Modal close={this.closeDetailInfoHandler}>
