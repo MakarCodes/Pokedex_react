@@ -11,6 +11,7 @@ class App extends Component {
   state = {
     showTypeButtons: false,
     type: [],
+    pokemonsToDisplay: [],
   };
 
   componentDidMount() {
@@ -25,12 +26,26 @@ class App extends Component {
   }
 
   filterPokemons = type => {
+    let pokemonsToDisplay = null;
     if (type.length === 0) {
+      pokemonsToDisplay = this.props.pokemons;
       //get initially fetched pokemons from local storage
       console.log('Get from Local Storage');
     } else if (type.length === 1) {
+      console.log('Type length one', type);
+      // pokemonsToDisplay = this.props.pokemons.filter(pokemon => pokemon.types[0].type.name === type[0]);
+
+      pokemonsToDisplay = this.props.pokemons.filter(pokemon => {
+        if (pokemon.types.length > 1) {
+          return pokemon.types.some(pokeType => pokeType.type.name.includes(type[0]));
+        }
+        return pokemon.types[0].type.name === type[0];
+      });
+      console.log(pokemonsToDisplay);
       //fetch pokemons depeneding on type
-      this.props.fetchPokemons(this.state.type[0]);
+      // this.props.fetchPokemons(this.state.type[0]);
+      // filter pokemons from state and create new state variable - pokemonsToDisplay
+      // pokemon.types.map(type => type.name === grass ?)
     } else {
       // double filtering 1. fetch data for one type than filter all and find only those which match second type
       console.log('Dobule trouble my friend - double filtering required');
