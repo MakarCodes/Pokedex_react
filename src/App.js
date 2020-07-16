@@ -53,7 +53,12 @@ class App extends Component {
       // this.props.fetchPokemons(this.state.type[0]);
     } else {
       console.log('Dobule trouble my friend - double filtering required');
-
+      //check if every type includes one from array
+      pokemonsToDisplay = this.props.pokemons.filter(pokemon => {
+        // console.log(pokemon.types, 'poe Types');
+        return pokemon.types.every(pokeType => type.includes(pokeType.type.name));
+      });
+      console.log(pokemonsToDisplay, 'from double trobule');
       this.setState({
         pokemonsToDisplay: pokemonsToDisplay,
       });
