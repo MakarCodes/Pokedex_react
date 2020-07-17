@@ -45,11 +45,19 @@ class App extends Component {
     } else {
       console.log('[DOUBLE FILTERING Pokemons from initial state!]', type);
       pokemonsToDisplay = this.props.pokemons.filter(pokemon => {
-        return pokemon.types.every(pokeType =>
-          type.includes(pokeType.type.name)
-        );
+        if (pokemon.types.length >= 2) {
+          return pokemon.types.every(pokeType =>
+            type.includes(pokeType.type.name)
+          );
+        } else {
+          pokemonsToDisplay = [];
+          console.log('No results for those types!');
+          return false;
+        }
       });
     }
+    console.log(pokemonsToDisplay, '[Pokemons after double filtering]');
+
     this.setState({
       pokemonsToDisplay: pokemonsToDisplay,
     });
