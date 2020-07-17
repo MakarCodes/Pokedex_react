@@ -19,14 +19,15 @@ class App extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.state.type !== prevState.type && this.state.type.length !== 0) {
+    if (this.state.type !== prevState.type) {
       // this.props.fetchPokemons(this.state.type);
-      console.log('[UPDATED]');
+      console.log('[UPDATED]', this.state.type);
       this.filterPokemons(this.state.type);
     }
   }
 
   filterPokemons = type => {
+    console.log('[FILTER POKEMONS FUNCTION]');
     let pokemonsToDisplay = null;
     if (type.length === 0) {
       console.log('[GET Pokemons from initial state!]', type);
@@ -35,14 +36,18 @@ class App extends Component {
       console.log('[FILTER Pokemons from initial state!]', type);
       pokemonsToDisplay = this.props.pokemons.filter(pokemon => {
         if (pokemon.types.length > 1) {
-          return pokemon.types.some(pokeType => pokeType.type.name.includes(type[0]));
+          return pokemon.types.some(pokeType =>
+            pokeType.type.name.includes(type[0])
+          );
         }
         return pokemon.types[0].type.name === type[0];
       });
     } else {
       console.log('[DOUBLE FILTERING Pokemons from initial state!]', type);
       pokemonsToDisplay = this.props.pokemons.filter(pokemon => {
-        return pokemon.types.every(pokeType => type.includes(pokeType.type.name));
+        return pokemon.types.every(pokeType =>
+          type.includes(pokeType.type.name)
+        );
       });
     }
     this.setState({
@@ -51,6 +56,7 @@ class App extends Component {
   };
 
   handleFilterTypes = (type, button) => {
+    console.log('[CHANGE TYPES IN STATE FUNCTION]');
     let typeArray = [...this.state.type];
     if (!typeArray.includes(type) && typeArray.length < 2) {
       typeArray.push(type);
@@ -71,6 +77,7 @@ class App extends Component {
   };
 
   handleFilterChange = (type, e) => {
+    console.log('[HANDLE TYPE CLICK!]');
     const TYPE_COLORS = {
       poison: '#C68CC6',
       grass: '#AEDE96',
@@ -108,7 +115,11 @@ class App extends Component {
     return (
       <div className={classes.App}>
         <Layout>
-          <Filter showFilteringButtons={this.showFilteringButtons} showButtons={this.state.showTypeButtons} filterType={this.handleFilterChange} />
+          <Filter
+            showFilteringButtons={this.showFilteringButtons}
+            showButtons={this.state.showTypeButtons}
+            filterType={this.handleFilterChange}
+          />
           <PokemonContainer pokemonsToDisplay={this.state.pokemonsToDisplay} />
           Paging Section
         </Layout>
