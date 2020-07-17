@@ -12,6 +12,26 @@ class App extends Component {
     showTypeButtons: false,
     type: [],
     pokemonsToDisplay: [],
+    filterButtons: {
+      poison: false,
+      grass: false,
+      fire: false,
+      flying: false,
+      water: false,
+      bug: false,
+      normal: false,
+      electric: false,
+      ground: false,
+      fairy: false,
+      fighting: false,
+      psychic: false,
+      rock: false,
+      ghost: false,
+      ice: false,
+      steel: false,
+      dragon: false,
+      dark: false,
+    },
   };
 
   componentDidMount() {
@@ -64,28 +84,6 @@ class App extends Component {
   };
 
   handleFilterTypes = (type, button) => {
-    console.log('[CHANGE TYPES IN STATE FUNCTION]');
-    let typeArray = [...this.state.type];
-    if (!typeArray.includes(type) && typeArray.length < 2) {
-      typeArray.push(type);
-    } else if (typeArray.includes(type)) {
-      typeArray.splice(
-        typeArray.findIndex(x => x === type),
-        1
-      );
-      button.style.backgroundColor = 'transparent';
-    } else if (typeArray.length >= 2 && !typeArray.includes(type)) {
-      typeArray.splice(1, 1, type);
-      // console.log(button.previousElementSibling);
-      button.previousElementSibling.style.backgroundColor = 'transparent';
-    }
-    this.setState({
-      type: typeArray,
-    });
-  };
-
-  handleFilterChange = (type, e) => {
-    console.log('[HANDLE TYPE CLICK!]');
     const TYPE_COLORS = {
       poison: '#C68CC6',
       grass: '#AEDE96',
@@ -106,9 +104,49 @@ class App extends Component {
       dragon: '#A886F9',
       dark: '#A89990',
     };
+    console.log('[CHANGE TYPES IN STATE FUNCTION]');
+    let typeArray = [...this.state.type];
+    if (!typeArray.includes(type) && typeArray.length < 2) {
+      typeArray.push(type);
+      button.style.backgroundColor = TYPE_COLORS[type];
+    } else if (typeArray.includes(type)) {
+      typeArray.splice(
+        typeArray.findIndex(x => x === type),
+        1
+      );
+      button.style.backgroundColor = '';
+    } else if (typeArray.length >= 2 && !typeArray.includes(type)) {
+      typeArray.splice(1, 1, type);
+      button.style.backgroundColor = TYPE_COLORS[type];
+    }
+    this.setState({
+      type: typeArray,
+    });
+  };
+
+  handleFilterChange = (type, e) => {
+    console.log('[HANDLE TYPE CLICK!]');
     const pokemonType = type.toLowerCase();
     const button = e.target;
-    button.style.backgroundColor = TYPE_COLORS[pokemonType];
+    // let counter = 0;
+    // const filterButtons = this.state.filterButtons;
+    // for (const prop in filterButtons) {
+    //   if (button.name === prop) {
+    //     let key = button.name;
+    //     const newobj = { ...filterButtons, [key]: true };
+    //     this.setState({
+    //       filterButtons: newobj,
+    //     });
+    //   }
+    // }
+    // for (const prop in filterButtons) {
+    //   if (filterButtons[prop]) {
+    //     counter += 1;
+    //   }
+    //   console.log(counter);
+    // }
+
+    // check if obj has x2 true
     //check if button was clicked already - if was remmove type, if not add type
     this.handleFilterTypes(pokemonType, button);
   };

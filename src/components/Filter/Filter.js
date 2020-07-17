@@ -31,7 +31,7 @@ const Filter = ({ showFilteringButtons, showButtons, filterType }) => {
   if (showButtons) {
     typeButtonList = filterTypes.map((type, index) => {
       return (
-        <Button key={type + index} clicked={filterType}>
+        <Button key={type + index} clicked={filterType} name={type}>
           {type.toUpperCase()}
         </Button>
       );
