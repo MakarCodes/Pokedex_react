@@ -7,31 +7,32 @@ import Layout from './containers/Layout/Layout';
 import PokemonContainer from './containers/PokemonContainer/PokemonContainer';
 import Filter from './components/Filter/Filter';
 
+const TYPE_COLORS = {
+  poison: '#C68CC6',
+  grass: '#AEDE96',
+  fire: '#F6B282',
+  flying: '#CABCF6',
+  water: '#A4BCF6',
+  bug: '#CAD479',
+  normal: '#CACAAE',
+  electric: '#FAE282',
+  ground: '#ECD9A4',
+  fairy: '#F4C1CD',
+  fighting: '#D9827E',
+  psychic: '#FA9AB7',
+  rock: '#D4C687',
+  ghost: '#A99AC1',
+  ice: '#C1E7E7',
+  steel: '#D4D4E2',
+  dragon: '#A886F9',
+  dark: '#A89990',
+};
+
 class App extends Component {
   state = {
     showTypeButtons: false,
     type: [],
     pokemonsToDisplay: [],
-    filterButtons: {
-      poison: false,
-      grass: false,
-      fire: false,
-      flying: false,
-      water: false,
-      bug: false,
-      normal: false,
-      electric: false,
-      ground: false,
-      fairy: false,
-      fighting: false,
-      psychic: false,
-      rock: false,
-      ghost: false,
-      ice: false,
-      steel: false,
-      dragon: false,
-      dark: false,
-    },
   };
 
   componentDidMount() {
@@ -84,40 +85,20 @@ class App extends Component {
   };
 
   handleFilterTypes = (type, button) => {
-    const TYPE_COLORS = {
-      poison: '#C68CC6',
-      grass: '#AEDE96',
-      fire: '#F6B282',
-      flying: '#CABCF6',
-      water: '#A4BCF6',
-      bug: '#CAD479',
-      normal: '#CACAAE',
-      electric: '#FAE282',
-      ground: '#ECD9A4',
-      fairy: '#F4C1CD',
-      fighting: '#D9827E',
-      psychic: '#FA9AB7',
-      rock: '#D4C687',
-      ghost: '#A99AC1',
-      ice: '#C1E7E7',
-      steel: '#D4D4E2',
-      dragon: '#A886F9',
-      dark: '#A89990',
-    };
     console.log('[CHANGE TYPES IN STATE FUNCTION]');
     let typeArray = [...this.state.type];
     if (!typeArray.includes(type) && typeArray.length < 2) {
       typeArray.push(type);
-      button.style.backgroundColor = TYPE_COLORS[type];
+      // button.style.backgroundColor = TYPE_COLORS[type];
     } else if (typeArray.includes(type)) {
       typeArray.splice(
         typeArray.findIndex(x => x === type),
         1
       );
-      button.style.backgroundColor = '';
+      // button.style.backgroundColor = '';
     } else if (typeArray.length >= 2 && !typeArray.includes(type)) {
       typeArray.splice(1, 1, type);
-      button.style.backgroundColor = TYPE_COLORS[type];
+      // button.style.backgroundColor = TYPE_COLORS[type];
     }
     this.setState({
       type: typeArray,
@@ -165,6 +146,7 @@ class App extends Component {
             showFilteringButtons={this.showFilteringButtons}
             showButtons={this.state.showTypeButtons}
             filterType={this.handleFilterChange}
+            filterBy={this.state.type}
           />
           <PokemonContainer pokemonsToDisplay={this.state.pokemonsToDisplay} />
           Paging Section

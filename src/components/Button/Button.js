@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './Button.module.scss';
 
-const Button = ({ children, clicked, name }) => {
+const Button = ({ children, clicked, name, bgStyle }) => {
   return (
     <button
       onClick={e => {
@@ -9,6 +9,7 @@ const Button = ({ children, clicked, name }) => {
       }}
       className={classes.Button}
       name={name}
+      style={bgStyle}
     >
       {children}
     </button>
