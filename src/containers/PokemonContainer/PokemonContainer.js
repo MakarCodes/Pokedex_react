@@ -29,18 +29,34 @@ class PokemonContainer extends Component {
   };
 
   render() {
-    let pokemonList = this.props.pokemons.map(pokemon => {
-      return <PokemonCard clicked={this.detailInfoHandler} pokemon={pokemon} key={pokemon.id} />;
+    let pokemonList = this.props.pokemons.slice(1, 21).map(pokemon => {
+      return (
+        <PokemonCard
+          clicked={this.detailInfoHandler}
+          pokemon={pokemon}
+          key={pokemon.id}
+        />
+      );
     });
     if (this.props.pokemonsToDisplay.length !== 0) {
-      pokemonList = this.props.pokemonsToDisplay.map(pokemon => {
-        return <PokemonCard clicked={this.detailInfoHandler} pokemon={pokemon} key={pokemon.id} />;
+      pokemonList = this.props.pokemonsToDisplay.slice(1, 21).map(pokemon => {
+        return (
+          <PokemonCard
+            clicked={this.detailInfoHandler}
+            pokemon={pokemon}
+            key={pokemon.id}
+          />
+        );
       });
     }
 
     let modalWithDetails = this.state.displayDetailInfo ? (
       <Modal close={this.closeDetailInfoHandler}>
-        <CardWithDetails closeModal={this.closeDetailInfoHandler} pokemon={this.state.pokemon} colors={this.state.colors} />
+        <CardWithDetails
+          closeModal={this.closeDetailInfoHandler}
+          pokemon={this.state.pokemon}
+          colors={this.state.colors}
+        />
       </Modal>
     ) : null;
 

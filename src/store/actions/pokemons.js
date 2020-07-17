@@ -25,9 +25,11 @@ export const fetchPokemonInit = () => {
   return dispatch => {
     dispatch(fetchPokemonStart());
     axios
-      .get('https://pokeapi.co/api/v2/pokemon?offset=0&limit=20')
+      .get('https://pokeapi.co/api/v2/pokemon?offset=0&limit=500')
       .then(response => {
-        return Promise.all(response.data.results.map(result => axios.get(result.url)));
+        return Promise.all(
+          response.data.results.map(result => axios.get(result.url))
+        );
       })
       .then(responses => {
         return responses.map(singleResponse => singleResponse.data);
@@ -48,7 +50,11 @@ export const fetchPokemonTypes = type => {
     axios
       .get(`https://pokeapi.co/api/v2/type/${type}`)
       .then(response => {
-        return Promise.all(response.data.pokemon.slice(1, 21).map(result => axios.get(result.pokemon.url)));
+        return Promise.all(
+          response.data.pokemon
+            .slice(1, 21)
+            .map(result => axios.get(result.pokemon.url))
+        );
       })
       .then(responses => {
         return responses.map(singleResponse => singleResponse.data);
