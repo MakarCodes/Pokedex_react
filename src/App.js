@@ -28,67 +28,46 @@ class App extends Component {
 
   filterPokemons = type => {
     let pokemonsToDisplay = null;
-    console.log('im working');
     if (type.length === 0) {
+      console.log('[GET Pokemons from initial state!]', type);
       pokemonsToDisplay = this.props.pokemons;
-      //get initially fetched pokemons from local storage
-      console.log('Get from Local Storage');
-      this.setState({
-        pokemonsToDisplay: pokemonsToDisplay,
-      });
     } else if (type.length === 1) {
-      console.log('Type length one', type);
+      console.log('[FILTER Pokemons from initial state!]', type);
       pokemonsToDisplay = this.props.pokemons.filter(pokemon => {
         if (pokemon.types.length > 1) {
           return pokemon.types.some(pokeType => pokeType.type.name.includes(type[0]));
         }
         return pokemon.types[0].type.name === type[0];
       });
-      console.log(pokemonsToDisplay);
-      this.setState({
-        pokemonsToDisplay: pokemonsToDisplay,
-      });
-      console.log(this.state.pokemonsToDisplay, 'state - poke to display');
-      //fetch pokemons depeneding on type
-      // this.props.fetchPokemons(this.state.type[0]);
     } else {
-      console.log('Dobule trouble my friend - double filtering required');
-      //check if every type includes one from array
+      console.log('[DOUBLE FILTERING Pokemons from initial state!]', type);
       pokemonsToDisplay = this.props.pokemons.filter(pokemon => {
-        // console.log(pokemon.types, 'poe Types');
         return pokemon.types.every(pokeType => type.includes(pokeType.type.name));
       });
-      console.log(pokemonsToDisplay, 'from double trobule');
-      this.setState({
-        pokemonsToDisplay: pokemonsToDisplay,
-      });
     }
+    this.setState({
+      pokemonsToDisplay: pokemonsToDisplay,
+    });
   };
 
   handleFilterTypes = (type, button) => {
     let typeArray = [...this.state.type];
     if (!typeArray.includes(type) && typeArray.length < 2) {
       typeArray.push(type);
-      this.setState({
-        type: typeArray,
-      });
     } else if (typeArray.includes(type)) {
       typeArray.splice(
         typeArray.findIndex(x => x === type),
         1
       );
       button.style.backgroundColor = 'transparent';
-      this.setState({
-        type: typeArray,
-      });
     } else if (typeArray.length >= 2 && !typeArray.includes(type)) {
       typeArray.splice(1, 1, type);
       // console.log(button.previousElementSibling);
       button.previousElementSibling.style.backgroundColor = 'transparent';
-      this.setState({
-        type: typeArray,
-      });
     }
+    this.setState({
+      type: typeArray,
+    });
   };
 
   handleFilterChange = (type, e) => {
@@ -117,8 +96,6 @@ class App extends Component {
     button.style.backgroundColor = TYPE_COLORS[pokemonType];
     //check if button was clicked already - if was remmove type, if not add type
     this.handleFilterTypes(pokemonType, button);
-    // button.parentNode.childNodes.forEach(element => (element.style.backgroundColor = 'transparent'));
-    console.log(this.state.type);
   };
 
   showFilteringButtons = () => {
