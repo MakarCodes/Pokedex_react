@@ -29,7 +29,7 @@ class PokemonContainer extends Component {
   };
 
   render() {
-    let pokemonList = this.props.pokemons.slice(1, 21).map(pokemon => {
+    let pokemonList = this.props.pokemons.slice(0, 20).map(pokemon => {
       return (
         <PokemonCard
           clicked={this.detailInfoHandler}
@@ -39,7 +39,7 @@ class PokemonContainer extends Component {
       );
     });
     if (this.props.pokemonsToDisplay.length !== 0) {
-      pokemonList = this.props.pokemonsToDisplay.slice(1, 21).map(pokemon => {
+      pokemonList = this.props.pokemonsToDisplay.slice(0, 20).map(pokemon => {
         return (
           <PokemonCard
             clicked={this.detailInfoHandler}

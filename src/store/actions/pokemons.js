@@ -52,7 +52,7 @@ export const fetchPokemonTypes = type => {
       .then(response => {
         return Promise.all(
           response.data.pokemon
-            .slice(1, 21)
+            .slice(0, 20)
             .map(result => axios.get(result.pokemon.url))
         );
       })
