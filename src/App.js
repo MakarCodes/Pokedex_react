@@ -6,6 +6,7 @@ import classes from './App.module.scss';
 import Layout from './containers/Layout/Layout';
 import PokemonContainer from './containers/PokemonContainer/PokemonContainer';
 import Filter from './components/Filter/Filter';
+import ReactPaginate from 'react-paginate';
 
 class App extends Component {
   state = {
@@ -159,6 +160,19 @@ class App extends Component {
             slicedPokemons={this.state.slice}
           />
           Paging Section
+          <ReactPaginate
+            previousLabel={'prev'}
+            nextLabel={'next'}
+            breakLabel={'...'}
+            breakClassName={'break-me'}
+            pageCount={this.state.pagination.pageCount}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            onPageChange={this.handlePageClick}
+            containerClassName={'pagination'}
+            subContainerClassName={'pages pagination'}
+            activeClassName={'active'}
+          />
         </Layout>
       </div>
     );
