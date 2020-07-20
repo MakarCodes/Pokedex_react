@@ -13,6 +13,11 @@ class App extends Component {
     type: [],
     pokemonsToDisplay: [],
     filterResult: true,
+    pagination: {
+      offset: 0,
+      perPage: 20,
+      currentPage: 0,
+    },
   };
 
   componentDidMount() {
@@ -26,6 +31,24 @@ class App extends Component {
       this.filterPokemons(this.state.type);
     }
   }
+
+  handlePageCount = () => {
+    // calculate page
+  };
+
+  handlePageClick = e => {
+    const selectedPage = e.selected;
+    const offset = selectedPage * this.state.pagination.perPage;
+    this.setState(
+      {
+        currentPage: selectedPage,
+        offset: offset,
+      },
+      () => {
+        this.handlePageCount();
+      }
+    );
+  };
 
   filterPokemons = type => {
     console.log('[FILTER POKEMONS FUNCTION]');
