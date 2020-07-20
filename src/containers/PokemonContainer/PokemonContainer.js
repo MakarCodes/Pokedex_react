@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 
 import classes from './PokemonContainer.module.scss';
 import Modal from '../../components/Modal/Modal';
@@ -74,11 +73,4 @@ class PokemonContainer extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    pokemons: state.pokemons,
-    loading: state.loading,
-  };
-};
-
-export default connect(mapStateToProps)(PokemonContainer);
+export default PokemonContainer;

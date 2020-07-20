@@ -109,6 +109,8 @@ class App extends Component {
             filterBy={this.state.type}
           />
           <PokemonContainer
+            pokemons={this.props.pokemons}
+            loading={this.props.loading}
             pokemonsToDisplay={this.state.pokemonsToDisplay}
             filterResult={this.state.filterResult}
           />
