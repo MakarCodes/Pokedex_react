@@ -49,6 +49,11 @@ class PokemonContainer extends Component {
         );
       });
     }
+    if (this.props.pokemonsToDisplay.length === 0 && !this.props.filterResult) {
+      pokemonList = (
+        <p className={classes.Message}>No results for selected filters!</p>
+      );
+    }
 
     let modalWithDetails = this.state.displayDetailInfo ? (
       <Modal close={this.closeDetailInfoHandler}>

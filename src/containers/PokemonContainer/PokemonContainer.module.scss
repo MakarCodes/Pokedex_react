@@ -1,10 +1,16 @@
 .Container {
-    width: 90%;
-    max-width: 1400px;
-    margin: 3% auto;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    flex-direction: row;
+  width: 90%;
+  max-width: 1400px;
+  margin: 3% auto;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-direction: row;
 }
 
+.Message {
+  font-size: 32px;
+  font-weight: 700;
+  text-align: center;
+  margin: 20px auto;
+}

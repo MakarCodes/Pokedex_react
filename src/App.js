@@ -12,6 +12,7 @@ class App extends Component {
     showTypeButtons: false,
     type: [],
     pokemonsToDisplay: [],
+    filterResult: true,
   };
 
   componentDidMount() {
@@ -29,6 +30,7 @@ class App extends Component {
   filterPokemons = type => {
     console.log('[FILTER POKEMONS FUNCTION]');
     let pokemonsToDisplay = null;
+    let filterResult = true;
     if (type.length === 0) {
       console.log('[GET Pokemons from initial state!]', type);
       pokemonsToDisplay = this.props.pokemons;
@@ -49,17 +51,19 @@ class App extends Component {
           return pokemon.types.every(pokeType =>
             type.includes(pokeType.type.name)
           );
-        } else {
-          pokemonsToDisplay = [];
-          console.log('No results for those types!');
-          return false;
         }
+        return null;
       });
     }
-    console.log(pokemonsToDisplay, '[Pokemons after filtering]');
+    if (pokemonsToDisplay.length === 0) {
+      console.log('No results for those types!');
+      filterResult = false;
+    }
+    console.log(pokemonsToDisplay, '[Pokemons after filtering]', filterResult);
 
     this.setState({
       pokemonsToDisplay: pokemonsToDisplay,
+      filterResult: filterResult,
     });
   };
 
@@ -104,7 +108,10 @@ class App extends Component {
             filterType={this.handleFilterChange}
             filterBy={this.state.type}
           />
-          <PokemonContainer pokemonsToDisplay={this.state.pokemonsToDisplay} />
+          <PokemonContainer
+            pokemonsToDisplay={this.state.pokemonsToDisplay}
+            filterResult={this.state.filterResult}
+          />
           Paging Section
         </Layout>
       </div>
