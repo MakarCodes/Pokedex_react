@@ -7,27 +7,6 @@ import Layout from './containers/Layout/Layout';
 import PokemonContainer from './containers/PokemonContainer/PokemonContainer';
 import Filter from './components/Filter/Filter';
 
-const TYPE_COLORS = {
-  poison: '#C68CC6',
-  grass: '#AEDE96',
-  fire: '#F6B282',
-  flying: '#CABCF6',
-  water: '#A4BCF6',
-  bug: '#CAD479',
-  normal: '#CACAAE',
-  electric: '#FAE282',
-  ground: '#ECD9A4',
-  fairy: '#F4C1CD',
-  fighting: '#D9827E',
-  psychic: '#FA9AB7',
-  rock: '#D4C687',
-  ghost: '#A99AC1',
-  ice: '#C1E7E7',
-  steel: '#D4D4E2',
-  dragon: '#A886F9',
-  dark: '#A89990',
-};
-
 class App extends Component {
   state = {
     showTypeButtons: false,
@@ -77,7 +56,7 @@ class App extends Component {
         }
       });
     }
-    console.log(pokemonsToDisplay, '[Pokemons after double filtering]');
+    console.log(pokemonsToDisplay, '[Pokemons after filtering]');
 
     this.setState({
       pokemonsToDisplay: pokemonsToDisplay,
@@ -89,16 +68,13 @@ class App extends Component {
     let typeArray = [...this.state.type];
     if (!typeArray.includes(type) && typeArray.length < 2) {
       typeArray.push(type);
-      // button.style.backgroundColor = TYPE_COLORS[type];
     } else if (typeArray.includes(type)) {
       typeArray.splice(
         typeArray.findIndex(x => x === type),
         1
       );
-      // button.style.backgroundColor = '';
     } else if (typeArray.length >= 2 && !typeArray.includes(type)) {
       typeArray.splice(1, 1, type);
-      // button.style.backgroundColor = TYPE_COLORS[type];
     }
     this.setState({
       type: typeArray,
@@ -109,26 +85,6 @@ class App extends Component {
     console.log('[HANDLE TYPE CLICK!]');
     const pokemonType = type.toLowerCase();
     const button = e.target;
-    // let counter = 0;
-    // const filterButtons = this.state.filterButtons;
-    // for (const prop in filterButtons) {
-    //   if (button.name === prop) {
-    //     let key = button.name;
-    //     const newobj = { ...filterButtons, [key]: true };
-    //     this.setState({
-    //       filterButtons: newobj,
-    //     });
-    //   }
-    // }
-    // for (const prop in filterButtons) {
-    //   if (filterButtons[prop]) {
-    //     counter += 1;
-    //   }
-    //   console.log(counter);
-    // }
-
-    // check if obj has x2 true
-    //check if button was clicked already - if was remmove type, if not add type
     this.handleFilterTypes(pokemonType, button);
   };
 
