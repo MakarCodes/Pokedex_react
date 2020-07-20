@@ -29,7 +29,7 @@ class PokemonContainer extends Component {
 
   render() {
     // let pokemonList = this.props.pokemons.slice(0, 20).map(pokemon => {
-    let pokemonList = this.props.slicedPokemons.map(pokemon => {
+    let pokemonList = this.props.pokemons.map(pokemon => {
       return (
         <PokemonCard
           clicked={this.detailInfoHandler}
@@ -38,17 +38,17 @@ class PokemonContainer extends Component {
         />
       );
     });
-    // if (this.props.pokemonsToDisplay.length !== 0) {
-    //   pokemonList = this.props.pokemonsToDisplay.slice(0, 20).map(pokemon => {
-    //     return (
-    //       <PokemonCard
-    //         clicked={this.detailInfoHandler}
-    //         pokemon={pokemon}
-    //         key={pokemon.id}
-    //       />
-    //     );
-    //   });
-    // }
+    if (this.props.pokemonsToDisplay.length !== 0) {
+      pokemonList = this.props.pokemonsToDisplay.slice(0, 20).map(pokemon => {
+        return (
+          <PokemonCard
+            clicked={this.detailInfoHandler}
+            pokemon={pokemon}
+            key={pokemon.id}
+          />
+        );
+      });
+    }
     if (this.props.pokemonsToDisplay.length === 0 && !this.props.filterResult) {
       pokemonList = (
         <p className={classes.Message}>No results for selected filters!</p>

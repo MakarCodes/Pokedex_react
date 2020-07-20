@@ -23,7 +23,9 @@ class App extends Component {
 
   componentDidMount() {
     this.props.fetchPokemonsInitial();
-    this.handlePageCount();
+    setTimeout(() => {
+      this.handlePageCount();
+    }, 5000);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -36,24 +38,25 @@ class App extends Component {
 
   handlePageCount = () => {
     // calculate page
+    console.log(this.props.pokemons, 'pokepoke');
     let slice = this.props.pokemons.slice(
-      this.state.offset,
-      this.state.offset + this.state.perPage
+      this.state.pagination.offset,
+      this.state.pagination.offset + this.state.pagination.perPage
     );
     let pageCount = Math.ceil(this.props.pokemons.length / this.state.perPage);
-    if (this.state.pokemonsToDisplay.length !== 0) {
-      slice = this.state.pokemonsToDisplay.slice(
-        this.state.offset,
-        this.state.offset + this.state.perPage
-      );
-      pageCount = Math.ceil(
-        this.state.pokemonsToDisplay.length / this.state.perPage
-      );
-    }
-
+    // if (this.state.pokemonsToDisplay.length !== 0) {
+    //   slice = this.state.pokemonsToDisplay.slice(
+    //     this.state.offset,
+    //     this.state.offset + this.state.perPage
+    //   );
+    //   pageCount = Math.ceil(
+    //     this.state.pokemonsToDisplay.length / this.state.perPage
+    //   );
+    // }
+    console.log(slice);
     this.setState({
       pageCount: pageCount,
-      slice,
+      pokemonsToDisplay: slice,
     });
   };
 
@@ -157,7 +160,6 @@ class App extends Component {
             loading={this.props.loading}
             pokemonsToDisplay={this.state.pokemonsToDisplay}
             filterResult={this.state.filterResult}
-            slicedPokemons={this.state.slice}
           />
           Paging Section
           <ReactPaginate
