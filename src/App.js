@@ -18,6 +18,7 @@ class App extends Component {
       offset: 0,
       perPage: 20,
       currentPage: 0,
+      data: [],
     },
   };
 
@@ -43,20 +44,25 @@ class App extends Component {
       this.state.pagination.offset,
       this.state.pagination.offset + this.state.pagination.perPage
     );
-    let pageCount = Math.ceil(this.props.pokemons.length / this.state.perPage);
-    // if (this.state.pokemonsToDisplay.length !== 0) {
-    //   slice = this.state.pokemonsToDisplay.slice(
-    //     this.state.offset,
-    //     this.state.offset + this.state.perPage
-    //   );
-    //   pageCount = Math.ceil(
-    //     this.state.pokemonsToDisplay.length / this.state.perPage
-    //   );
-    // }
-    console.log(slice);
+    let pageCount = Math.ceil(
+      this.props.pokemons.length / this.state.pagination.perPage
+    );
+    if (this.state.pokemonsToDisplay.length !== 0) {
+      slice = this.state.pokemonsToDisplay.slice(
+        this.state.pagination.offset,
+        this.state.pagination.offset + this.state.pagination.perPage
+      );
+      pageCount = Math.ceil(
+        this.state.pokemonsToDisplay.length / this.state.pagination.perPage
+      );
+    }
+    console.log(slice, pageCount);
     this.setState({
-      pageCount: pageCount,
-      pokemonsToDisplay: slice,
+      pagination: {
+        ...this.state.pagination,
+        pageCount: pageCount,
+        data: slice,
+      },
     });
   };
 
@@ -70,6 +76,9 @@ class App extends Component {
       },
       () => {
         this.handlePageCount();
+        console.log(this.state.pagination.offset);
+        console.log(this.state.pagination.currentPage);
+        console.log(this.state.pagination.data, 'data');
       }
     );
   };
@@ -160,6 +169,7 @@ class App extends Component {
             loading={this.props.loading}
             pokemonsToDisplay={this.state.pokemonsToDisplay}
             filterResult={this.state.filterResult}
+            data={this.state.pagination.data}
           />
           Paging Section
           <ReactPaginate
