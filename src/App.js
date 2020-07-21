@@ -6,7 +6,7 @@ import classes from './App.module.scss';
 import Layout from './containers/Layout/Layout';
 import PokemonContainer from './containers/PokemonContainer/PokemonContainer';
 import Filter from './components/Filter/Filter';
-import ReactPaginate from 'react-paginate';
+import Pagination from './components/Pagination/Pagination';
 
 class App extends Component {
   state = {
@@ -34,12 +34,11 @@ class App extends Component {
       // this.props.fetchPokemons(this.state.type);
       console.log('[UPDATED]', this.state.type);
       this.filterPokemons(this.state.type);
+      this.handlePageCount();
     }
   }
 
   handlePageCount = () => {
-    // calculate page
-    console.log(this.props.pokemons, 'pokepoke');
     let slice = this.props.pokemons.slice(
       this.state.pagination.offset,
       this.state.pagination.offset + this.state.pagination.perPage
@@ -64,6 +63,10 @@ class App extends Component {
         data: slice,
       },
     });
+    console.log(this.state.pagination.offset, 'offset');
+    console.log(this.state.pagination.currentPage, 'currentPage');
+    console.log(this.state.pagination.data, 'data');
+    console.log(this.state.pagination.pageCount, 'pageCount');
   };
 
   handlePageClick = e => {
@@ -79,22 +82,19 @@ class App extends Component {
       },
       () => {
         this.handlePageCount();
-        console.log(this.state.pagination.offset);
-        console.log(this.state.pagination.currentPage);
-        console.log(this.state.pagination.data, 'data');
       }
     );
   };
 
   filterPokemons = type => {
-    console.log('[FILTER POKEMONS FUNCTION]');
+    // console.log('[FILTER POKEMONS FUNCTION]');
     let pokemonsToDisplay = null;
     let filterResult = true;
     if (type.length === 0) {
-      console.log('[GET Pokemons from initial state!]', type);
+      // console.log('[GET Pokemons from initial state!]', type);
       pokemonsToDisplay = this.props.pokemons;
     } else if (type.length === 1) {
-      console.log('[FILTER Pokemons from initial state!]', type);
+      // console.log('[FILTER Pokemons from initial state!]', type);
       pokemonsToDisplay = this.props.pokemons.filter(pokemon => {
         if (pokemon.types.length > 1) {
           return pokemon.types.some(pokeType =>
@@ -104,7 +104,7 @@ class App extends Component {
         return pokemon.types[0].type.name === type[0];
       });
     } else {
-      console.log('[DOUBLE FILTERING Pokemons from initial state!]', type);
+      // console.log('[DOUBLE FILTERING Pokemons from initial state!]', type);
       pokemonsToDisplay = this.props.pokemons.filter(pokemon => {
         if (pokemon.types.length >= 2) {
           return pokemon.types.every(pokeType =>
@@ -115,7 +115,7 @@ class App extends Component {
       });
     }
     if (pokemonsToDisplay.length === 0) {
-      console.log('No results for those types!');
+      // console.log('No results for those types!');
       filterResult = false;
     }
     console.log(pokemonsToDisplay, '[Pokemons after filtering]', filterResult);
@@ -174,19 +174,9 @@ class App extends Component {
             filterResult={this.state.filterResult}
             data={this.state.pagination.data}
           />
-          Paging Section
-          <ReactPaginate
-            previousLabel={'prev'}
-            nextLabel={'next'}
-            breakLabel={'...'}
-            breakClassName={'break-me'}
+          <Pagination
             pageCount={this.state.pagination.pageCount}
-            marginPagesDisplayed={2}
-            pageRangeDisplayed={5}
-            onPageChange={this.handlePageClick}
-            containerClassName={'pagination'}
-            subContainerClassName={'pages pagination'}
-            activeClassName={'active'}
+            pageClick={this.handlePageClick}
           />
         </Layout>
       </div>
