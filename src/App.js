@@ -26,7 +26,7 @@ class App extends Component {
     this.props.fetchPokemonsInitial();
     setTimeout(() => {
       this.handlePageCount();
-    }, 5000);
+    }, 8000);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -39,21 +39,12 @@ class App extends Component {
   }
 
   handlePageCount = () => {
-    let slice = this.props.pokemons.slice(
-      this.state.pagination.offset,
-      this.state.pagination.offset + this.state.pagination.perPage
-    );
-    let pageCount = Math.ceil(
-      this.props.pokemons.length / this.state.pagination.perPage
-    );
+    const { offset, perPage } = this.state.pagination;
+    let slice = this.props.pokemons.slice(offset, offset + perPage);
+    let pageCount = Math.ceil(this.props.pokemons.length / perPage);
     if (this.state.pokemonsToDisplay.length !== 0) {
-      slice = this.state.pokemonsToDisplay.slice(
-        this.state.pagination.offset,
-        this.state.pagination.offset + this.state.pagination.perPage
-      );
-      pageCount = Math.ceil(
-        this.state.pokemonsToDisplay.length / this.state.pagination.perPage
-      );
+      slice = this.state.pokemonsToDisplay.slice(offset, offset + perPage);
+      pageCount = Math.ceil(this.state.pokemonsToDisplay.length / perPage);
     }
     console.log(slice, pageCount);
     this.setState({
@@ -126,7 +117,7 @@ class App extends Component {
     });
   };
 
-  handleFilterTypes = (type, button) => {
+  handleFilterTypes = type => {
     console.log('[CHANGE TYPES IN STATE FUNCTION]');
     let typeArray = [...this.state.type];
     if (!typeArray.includes(type) && typeArray.length < 2) {
@@ -147,8 +138,7 @@ class App extends Component {
   handleFilterChange = (type, e) => {
     console.log('[HANDLE TYPE CLICK!]');
     const pokemonType = type.toLowerCase();
-    const button = e.target;
-    this.handleFilterTypes(pokemonType, button);
+    this.handleFilterTypes(pokemonType);
   };
 
   showFilteringButtons = () => {
