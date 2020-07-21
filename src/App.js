@@ -41,15 +41,18 @@ class App extends Component {
     const { offset, perPage } = this.state.pagination;
     const { pokemonsToDisplay, filterResult } = this.state;
     const { pokemons } = this.props;
+    let slicedPokemonsPerPage = [];
+    let pageCount = 1;
 
-    let slicedPokemonsPerPage = pokemons.slice(offset, offset + perPage);
-    let pageCount = Math.ceil(pokemons.length / perPage);
     if (pokemonsToDisplay.length !== 0) {
+      console.log(offset);
       slicedPokemonsPerPage = pokemonsToDisplay.slice(offset, offset + perPage);
       pageCount = Math.ceil(pokemonsToDisplay.length / perPage);
-    }
-    if (pokemonsToDisplay.length === 0 && !filterResult) {
+    } else if (pokemonsToDisplay.length === 0 && !filterResult) {
       slicedPokemonsPerPage = [];
+    } else {
+      slicedPokemonsPerPage = pokemons.slice(offset, offset + perPage);
+      pageCount = Math.ceil(pokemons.length / perPage);
     }
     console.log(slicedPokemonsPerPage, 'sliced to display');
     this.setState({
@@ -59,11 +62,6 @@ class App extends Component {
         data: slicedPokemonsPerPage,
       },
     });
-    // console.log(slicedPokemonsPerPage, 'sliced pokemons');
-    // console.log(offset, 'offset');
-    // console.log(this.state.pagination.currentPage, 'currentPage');
-    // console.log(this.state.pagination.data, 'data');
-    // console.log(this.state.pagination.pageCount, 'pageCount');
   };
 
   handlePageClick = e => {
@@ -121,8 +119,13 @@ class App extends Component {
       {
         pokemonsToDisplay: pokemonsToDisplay,
         filterResult: filterResult,
+        pagination: {
+          ...this.state.pagination,
+          offset: 0,
+        },
       },
       () => {
+        console.log('im working');
         this.handlePageCount();
       }
     );
@@ -175,6 +178,10 @@ class App extends Component {
             filterResult={this.state.filterResult}
             data={this.state.pagination.data}
           />
+          {/* <Pagination
+            pageCount={this.state.pagination.pageCount}
+            pageClick={this.handlePageClick}
+          /> */}
           {this.state.pagination.data.length !== 0 ? (
             <Pagination
               pageCount={this.state.pagination.pageCount}
