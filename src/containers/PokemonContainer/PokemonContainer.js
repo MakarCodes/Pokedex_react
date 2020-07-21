@@ -28,13 +28,14 @@ class PokemonContainer extends Component {
   };
 
   render() {
+    const { data, loading } = this.props;
     let pokemonList = null;
-    if (!this.props.data.length) {
+    if (!data.length) {
       pokemonList = (
         <p className={classes.Message}>No results for selected filters!</p>
       );
     } else {
-      pokemonList = this.props.data.map(pokemon => {
+      pokemonList = data.map(pokemon => {
         return (
           <PokemonCard
             clicked={this.detailInfoHandler}
@@ -56,7 +57,7 @@ class PokemonContainer extends Component {
 
     return (
       <div className={classes.Container}>
-        {this.props.loading ? <Spinner /> : pokemonList}
+        {loading ? <Spinner /> : pokemonList}
         {modalWithDetails}
       </div>
     );

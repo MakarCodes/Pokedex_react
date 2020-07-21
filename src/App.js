@@ -65,8 +65,9 @@ class App extends Component {
   };
 
   handlePageClick = e => {
+    const { perPage } = this.state.pagination;
     const selectedPage = e.selected;
-    const offset = selectedPage * this.state.pagination.perPage;
+    const offset = selectedPage * perPage;
     this.setState(
       {
         pagination: {
@@ -82,15 +83,16 @@ class App extends Component {
   };
 
   filterPokemons = type => {
+    const { pokemons } = this.props;
     // console.log('[FILTER POKEMONS FUNCTION]');
     let pokemonsToDisplay = null;
     let filterResult = true;
     if (type.length === 0) {
       // console.log('[GET Pokemons from initial state!]', type);
-      pokemonsToDisplay = this.props.pokemons;
+      pokemonsToDisplay = pokemons;
     } else if (type.length === 1) {
       // console.log('[FILTER Pokemons from initial state!]', type);
-      pokemonsToDisplay = this.props.pokemons.filter(pokemon => {
+      pokemonsToDisplay = pokemons.filter(pokemon => {
         if (pokemon.types.length > 1) {
           return pokemon.types.some(pokeType =>
             pokeType.type.name.includes(type[0])
@@ -100,7 +102,7 @@ class App extends Component {
       });
     } else {
       // console.log('[DOUBLE FILTERING Pokemons from initial state!]', type);
-      pokemonsToDisplay = this.props.pokemons.filter(pokemon => {
+      pokemonsToDisplay = pokemons.filter(pokemon => {
         if (pokemon.types.length >= 2) {
           return pokemon.types.every(pokeType =>
             type.includes(pokeType.type.name)
@@ -125,7 +127,6 @@ class App extends Component {
         },
       },
       () => {
-        console.log('im working');
         this.handlePageCount();
       }
     );
@@ -178,10 +179,6 @@ class App extends Component {
             filterResult={this.state.filterResult}
             data={this.state.pagination.data}
           />
-          {/* <Pagination
-            pageCount={this.state.pagination.pageCount}
-            pageClick={this.handlePageClick}
-          /> */}
           {this.state.pagination.data.length !== 0 ? (
             <Pagination
               pageCount={this.state.pagination.pageCount}
