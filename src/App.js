@@ -24,40 +24,46 @@ class App extends Component {
 
   componentDidMount() {
     this.props.fetchPokemonsInitial();
-    setTimeout(() => {
-      this.handlePageCount();
-    }, 8000);
+    // setTimeout(() => {
+    //   this.handlePageCount();
+    // }, 8000);
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.state.type !== prevState.type) {
-      // this.props.fetchPokemons(this.state.type);
-      console.log('[UPDATED]', this.state.type);
-      this.filterPokemons(this.state.type);
-      this.handlePageCount();
+    const { type } = this.state;
+    if (type !== prevState.type) {
+      // console.log('[UPDATED]', type);
+      this.filterPokemons(type);
     }
   }
 
   handlePageCount = () => {
     const { offset, perPage } = this.state.pagination;
-    let slice = this.props.pokemons.slice(offset, offset + perPage);
-    let pageCount = Math.ceil(this.props.pokemons.length / perPage);
-    if (this.state.pokemonsToDisplay.length !== 0) {
-      slice = this.state.pokemonsToDisplay.slice(offset, offset + perPage);
-      pageCount = Math.ceil(this.state.pokemonsToDisplay.length / perPage);
+    const { pokemonsToDisplay, filterResult } = this.state;
+    const { pokemons } = this.props;
+
+    let slicedPokemonsPerPage = pokemons.slice(offset, offset + perPage);
+    let pageCount = Math.ceil(pokemons.length / perPage);
+    if (pokemonsToDisplay.length !== 0) {
+      slicedPokemonsPerPage = pokemonsToDisplay.slice(offset, offset + perPage);
+      pageCount = Math.ceil(pokemonsToDisplay.length / perPage);
     }
-    console.log(slice, pageCount);
+    if (pokemonsToDisplay.length === 0 && !filterResult) {
+      slicedPokemonsPerPage = [];
+    }
+    console.log(slicedPokemonsPerPage, 'sliced to display');
     this.setState({
       pagination: {
         ...this.state.pagination,
         pageCount: pageCount,
-        data: slice,
+        data: slicedPokemonsPerPage,
       },
     });
-    console.log(this.state.pagination.offset, 'offset');
-    console.log(this.state.pagination.currentPage, 'currentPage');
-    console.log(this.state.pagination.data, 'data');
-    console.log(this.state.pagination.pageCount, 'pageCount');
+    // console.log(slicedPokemonsPerPage, 'sliced pokemons');
+    // console.log(offset, 'offset');
+    // console.log(this.state.pagination.currentPage, 'currentPage');
+    // console.log(this.state.pagination.data, 'data');
+    // console.log(this.state.pagination.pageCount, 'pageCount');
   };
 
   handlePageClick = e => {
@@ -111,10 +117,15 @@ class App extends Component {
     }
     console.log(pokemonsToDisplay, '[Pokemons after filtering]', filterResult);
 
-    this.setState({
-      pokemonsToDisplay: pokemonsToDisplay,
-      filterResult: filterResult,
-    });
+    this.setState(
+      {
+        pokemonsToDisplay: pokemonsToDisplay,
+        filterResult: filterResult,
+      },
+      () => {
+        this.handlePageCount();
+      }
+    );
   };
 
   handleFilterTypes = type => {
@@ -135,7 +146,7 @@ class App extends Component {
     });
   };
 
-  handleFilterChange = (type, e) => {
+  handleFilterChange = type => {
     console.log('[HANDLE TYPE CLICK!]');
     const pokemonType = type.toLowerCase();
     this.handleFilterTypes(pokemonType);
@@ -164,10 +175,12 @@ class App extends Component {
             filterResult={this.state.filterResult}
             data={this.state.pagination.data}
           />
-          <Pagination
-            pageCount={this.state.pagination.pageCount}
-            pageClick={this.handlePageClick}
-          />
+          {this.state.pagination.data.length !== 0 ? (
+            <Pagination
+              pageCount={this.state.pagination.pageCount}
+              pageClick={this.handlePageClick}
+            />
+          ) : null}
         </Layout>
       </div>
     );

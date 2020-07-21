@@ -5,7 +5,7 @@ const Button = ({ children, clicked, name, bgStyle }) => {
   return (
     <button
       onClick={e => {
-        clicked(children, e);
+        clicked(children);
       }}
       className={classes.Button}
       name={name}
