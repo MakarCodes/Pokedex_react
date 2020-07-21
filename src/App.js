@@ -71,8 +71,11 @@ class App extends Component {
     const offset = selectedPage * this.state.pagination.perPage;
     this.setState(
       {
-        currentPage: selectedPage,
-        offset: offset,
+        pagination: {
+          ...this.state.pagination,
+          currentPage: selectedPage,
+          offset: offset,
+        },
       },
       () => {
         this.handlePageCount();
