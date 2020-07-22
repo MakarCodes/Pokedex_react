@@ -18,7 +18,7 @@ Project is created with:
 
 ## Live
 
-https://makarcodes.github.io/Pokedex_react/
+<a href="https://makarcodes.github.io/Pokedex_react/">Pokedex Live</a>
 
 ## Setup
 
