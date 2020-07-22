@@ -1,6 +1,6 @@
 ## General info
 
-Pokedex App is application build on React and Redux.
+Pokedex App is an application build on React and Redux.
 App is fetching all available Pokemons from Pokemon Api and display information about them.
 Application has filtering and pagination.
 User can filter through different types of Pokemons - every Pokemon might have maximum two types, that's why user can filter selecting two types maximum simultenously.
