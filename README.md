@@ -1,4 +1,37 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## General info
+
+Pokedex App is application build on React and Redux.
+App is fetching all available Pokemons from Pokemon Api and display information about them.
+Application has filtering and pagination.
+User can filter through different types of Pokemons - every Pokemon might have maximum two types, that's why user can filter selecting two types maximum simultenously.
+User can request different numbers of pages with Pokemons.
+All initially fetched Pokemons are stored in global state in Redux, which prevent uploading data while surffing through page.
+User can also get additional detial information about every Pokemon by clicking on the specific card, which will lunch another fetching action.
+
+## Technologies
+
+Project is created with:
+
+- React
+- Redux
+- CSS3
+
+## Live
+
+https://makarcodes.github.io/Pokedex_react/
+
+## Setup
+
+To run this project, clone it and open with live server:
+
+```
+$ cd to the folder where you want to download the project
+$ git clone https://github.com/MakarCodes/Pokedex_react.git
+$ npm install
+$ npm start
+
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```
 
 ## Available Scripts
 
