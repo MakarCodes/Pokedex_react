@@ -5,8 +5,8 @@ import classes from './Pagination.module.scss';
 const Pagination = ({ pageCount, pageClick }) => {
   return (
     <ReactPaginate
-      previousLabel={'prev'}
-      nextLabel={'next'}
+      previousLabel={'‹'}
+      nextLabel={'›'}
       breakLabel={'...'}
       breakClassName={'break-me'}
       pageCount={pageCount}
@@ -15,7 +15,7 @@ const Pagination = ({ pageCount, pageClick }) => {
       onPageChange={pageClick}
       containerClassName={classes.Pagination}
       subContainerClassName={'pages pagination'}
-      activeClassName={'active'}
+      activeClassName={classes.Active}
     />
   );
 };

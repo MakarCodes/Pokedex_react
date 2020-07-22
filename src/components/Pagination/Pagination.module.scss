@@ -1,33 +1,44 @@
+$base-blue: #007bff;
+
 .Pagination {
-  margin: 15px auto;
+  width: 60%;
+  padding: 25px 0;
+  margin: 0 auto;
   display: flex;
+  justify-content: center;
+  align-items: center;
   list-style: none;
   outline: none;
 }
-.Pagination > .active > a {
-  background-color: #47ccde;
-  border-color: #47ccde;
+.Active a {
+  background-color: $base-blue;
+  border-color: $base-blue;
   color: #fff;
 }
+
 .Pagination > li > a {
-  border: 1px solid #47ccde;
+  font-size: 20px;
+  border: 1px solid $base-blue;
   padding: 5px 10px;
   outline: none;
+  color: #fff;
   cursor: pointer;
 }
-.Pagination > .active > a,
-.Pagination > .active > span,
-.Pagination > .active > a:hover,
-.Pagination > .active > span:hover,
-.Pagination > .active > a:focus,
-.Pagination > .active > span:focus {
-  background-color: #47ccde;
-  border-color: #47ccde;
+.Pagination > .Active > a,
+.Pagination > .Active > span,
+.Pagination > .Active > a:hover,
+.Pagination > .Active > span:hover,
+.Pagination > .Active > a:focus,
+.Pagination > .Active > span:focus {
+  background-color: $base-blue;
+  border-color: $base-blue;
   outline: none;
+  color: #fff;
 }
+
 .Pagination > li > a,
 .Pagination > li > span {
-  color: #47ccde;
+  color: $base-blue;
 }
 .Pagination > li:first-child > a,
 .Pagination > li:first-child > span,
