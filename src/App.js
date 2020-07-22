@@ -165,7 +165,10 @@ class App extends Component {
 
   render() {
     return (
-      <div className={classes.App}>
+      <div
+        className={classes.App}
+        style={{ height: this.props.loading ? '100vh' : '100%' }}
+      >
         <Layout>
           <Filter
             showFilteringButtons={this.showFilteringButtons}
