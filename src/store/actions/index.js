@@ -1,5 +1,1 @@
-export {
-  fetchPokemonInit,
-  fetchPokemonTypes,
-  fetchDescriptionInit,
-} from './pokemons';
+export { fetchPokemonInit, fetchDescriptionInit } from './pokemons';

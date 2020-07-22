@@ -44,29 +44,29 @@ export const fetchPokemonInit = () => {
   };
 };
 
-export const fetchPokemonTypes = type => {
-  return dispatch => {
-    dispatch(fetchPokemonStart());
-    axios
-      .get(`https://pokeapi.co/api/v2/type/${type}`)
-      .then(response => {
-        return Promise.all(
-          response.data.pokemon
-            .slice(0, 20)
-            .map(result => axios.get(result.pokemon.url))
-        );
-      })
-      .then(responses => {
-        return responses.map(singleResponse => singleResponse.data);
-      })
-      .then(pokemons => {
-        dispatch(fetchPokemonSuccess(pokemons));
-      })
-      .catch(error => {
-        dispatch(fetchPokemonFail(error));
-      });
-  };
-};
+// export const fetchPokemonTypes = type => {
+//   return dispatch => {
+//     dispatch(fetchPokemonStart());
+//     axios
+//       .get(`https://pokeapi.co/api/v2/type/${type}`)
+//       .then(response => {
+//         return Promise.all(
+//           response.data.pokemon
+//             .slice(0, 20)
+//             .map(result => axios.get(result.pokemon.url))
+//         );
+//       })
+//       .then(responses => {
+//         return responses.map(singleResponse => singleResponse.data);
+//       })
+//       .then(pokemons => {
+//         dispatch(fetchPokemonSuccess(pokemons));
+//       })
+//       .catch(error => {
+//         dispatch(fetchPokemonFail(error));
+//       });
+//   };
+// };
 
 export const fetchPokemonDescriptionStart = () => {
   return {

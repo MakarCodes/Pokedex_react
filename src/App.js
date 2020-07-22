@@ -24,16 +24,17 @@ class App extends Component {
 
   componentDidMount() {
     this.props.fetchPokemonsInitial();
-    // setTimeout(() => {
-    //   this.handlePageCount();
-    // }, 8000);
   }
 
   componentDidUpdate(prevProps, prevState) {
     const { type } = this.state;
+    const { pokemons } = this.props;
     if (type !== prevState.type) {
       // console.log('[UPDATED]', type);
       this.filterPokemons(type);
+    }
+    if (pokemons !== prevProps.pokemons) {
+      this.handlePageCount();
     }
   }
 
@@ -179,7 +180,7 @@ class App extends Component {
             filterResult={this.state.filterResult}
             data={this.state.pagination.data}
           />
-          {this.state.pagination.data.length !== 0 ? (
+          {!this.props.loading ? (
             <Pagination
               pageCount={this.state.pagination.pageCount}
               pageClick={this.handlePageClick}
@@ -201,7 +202,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchPokemonsInitial: () => dispatch(actions.fetchPokemonInit()),
-    fetchPokemons: type => dispatch(actions.fetchPokemonTypes(type)),
   };
 };
 
