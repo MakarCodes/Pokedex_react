@@ -20,6 +20,9 @@ class App extends Component {
       currentPage: 0,
       data: [],
     },
+    displayDetailInfo: false,
+    pokemon: null,
+    colors: [],
   };
 
   componentDidMount() {
@@ -37,6 +40,19 @@ class App extends Component {
       this.handlePageCount();
     }
   }
+  detailInfoHandler = (pokemon, colors) => {
+    this.setState({
+      displayDetailInfo: true,
+      pokemon: pokemon,
+      colors: colors,
+    });
+  };
+
+  closeDetailInfoHandler = () => {
+    this.setState({
+      displayDetailInfo: false,
+    });
+  };
 
   handlePageCount = () => {
     const { offset, perPage } = this.state.pagination;
@@ -177,11 +193,13 @@ class App extends Component {
             filterBy={this.state.type}
           />
           <PokemonContainer
-            pokemons={this.props.pokemons}
-            loading={this.props.loading}
-            pokemonsToDisplay={this.state.pokemonsToDisplay}
-            filterResult={this.state.filterResult}
             data={this.state.pagination.data}
+            loading={this.props.loading}
+            detailInfoHandler={this.detailInfoHandler}
+            closeDetailInfoHandler={this.closeDetailInfoHandler}
+            colors={this.state.colors}
+            displayDetailInfo={this.state.displayDetailInfo}
+            pokemon={this.state.pokemon}
           />
           {!this.props.loading ? (
             <Pagination
